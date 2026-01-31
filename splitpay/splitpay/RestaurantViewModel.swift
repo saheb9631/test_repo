@@ -91,6 +91,9 @@ class RestaurantViewModel: ObservableObject {
         
         isSearching = true
         
+        // Capture the selected city for the async task
+        let cityToSearch = selectedCity
+        
         // Debounce search - wait 300ms before making API call
         searchTask = Task {
             try? await Task.sleep(nanoseconds: 300_000_000)
@@ -98,12 +101,13 @@ class RestaurantViewModel: ObservableObject {
             guard !Task.isCancelled else { return }
             
             do {
-                let results = try await networkManager.searchRestaurants(query: query)
+                // Pass the selected city to filter search results
+                let results = try await networkManager.searchRestaurants(query: query, city: cityToSearch)
                 
                 guard !Task.isCancelled else { return }
                 
                 searchResults = results
-                print("🔍 Found \(results.count) restaurants for '\(query)'")
+                print("🔍 Found \(results.count) restaurants in \(cityToSearch) for '\(query)'")
             } catch {
                 print("❌ Search error: \(error.localizedDescription)")
                 searchResults = []

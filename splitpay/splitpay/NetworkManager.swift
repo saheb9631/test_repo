@@ -12,7 +12,7 @@ enum APIEndpoint {
     
     case cities
     case restaurantsByCity(String)
-    case search(String)
+    case search(query: String, city: String?)
     
     var url: URL? {
         switch self {
@@ -21,9 +21,14 @@ enum APIEndpoint {
         case .restaurantsByCity(let city):
             let cityPath = city.lowercased().addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? city.lowercased()
             return URL(string: "\(APIEndpoint.baseURL)/restaurants/city/\(cityPath)")
-        case .search(let query):
+        case .search(let query, let city):
             let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
-            return URL(string: "\(APIEndpoint.baseURL)/restaurants/search?q=\(encodedQuery)")
+            var urlString = "\(APIEndpoint.baseURL)/restaurants/search?q=\(encodedQuery)"
+            if let city = city, !city.isEmpty {
+                let encodedCity = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? city
+                urlString += "&city=\(encodedCity)"
+            }
+            return URL(string: urlString)
         }
     }
 }
@@ -110,8 +115,8 @@ class NetworkManager: ObservableObject {
     }
     
     // MARK: - Search Restaurants
-    func searchRestaurants(query: String) async throws -> [Restaurant] {
-        guard let url = APIEndpoint.search(query).url else {
+    func searchRestaurants(query: String, city: String? = nil) async throws -> [Restaurant] {
+        guard let url = APIEndpoint.search(query: query, city: city).url else {
             throw NetworkError.invalidURL
         }
         

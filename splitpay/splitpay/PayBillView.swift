@@ -5,6 +5,9 @@ struct PayBillView: View {
     // Tab binding from MainHomeView
     @Binding var selectedTab: Int
     
+    // Shared view model from MainHomeView - contains selected city
+    @ObservedObject var viewModel: RestaurantViewModel
+    
     // SEARCH STATE
     @State private var showSearch = false
     @State private var selectedRestaurant: Restaurant? = nil
@@ -170,10 +173,11 @@ struct PayBillView: View {
                     }
                 }
             }
-            // SEARCH SHEET - Now with API integration
+            // SEARCH SHEET - Now with API integration and city filter
             .sheet(isPresented: $showSearch) {
                 APIRestaurantSearchView(
-                    selectedRestaurant: $selectedRestaurant
+                    selectedRestaurant: $selectedRestaurant,
+                    selectedCity: viewModel.selectedCity
                 )
             }
             .onReceive(NotificationCenter.default.publisher(for: .popToRoot)) { _ in
@@ -192,7 +196,7 @@ extension Notification.Name {
 }
 
 #Preview {
-    PayBillView(selectedTab: .constant(1))
+    PayBillView(selectedTab: .constant(1), viewModel: RestaurantViewModel())
 }
 
 // MARK: - API Restaurant Search View
@@ -200,6 +204,9 @@ struct APIRestaurantSearchView: View {
 
     @Environment(\.dismiss) var dismiss
     @Binding var selectedRestaurant: Restaurant?
+    
+    // Accept selected city from parent
+    let selectedCity: String
 
     @State private var searchText = ""
     @State private var isLoading = true
@@ -223,7 +230,7 @@ struct APIRestaurantSearchView: View {
         NavigationStack {
             VStack {
                 if isLoading {
-                    ProgressView("Loading restaurants...")
+                    ProgressView("Loading restaurants in \(selectedCity)...")
                         .frame(maxHeight: .infinity)
                 } else if !displayedRestaurants.isEmpty {
                     List {
@@ -300,13 +307,13 @@ struct APIRestaurantSearchView: View {
                             .font(.system(size: 40))
                             .foregroundColor(.gray)
                         
-                        Text("No restaurants available")
+                        Text("No restaurants available in \(selectedCity)")
                             .foregroundColor(.gray)
                     }
                     .frame(maxHeight: .infinity)
                 }
             }
-            .searchable(text: $searchText, prompt: "Search restaurants")
+            .searchable(text: $searchText, prompt: "Search restaurants in \(selectedCity)")
             .navigationTitle("Select Restaurant")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -326,16 +333,16 @@ struct APIRestaurantSearchView: View {
         isLoading = true
         
         do {
-            // Load restaurants from Delhi (default city)
-            let restaurants = try await NetworkManager.shared.fetchRestaurants(city: "Delhi")
+            // Load restaurants from the selected city (not hardcoded Delhi)
+            let restaurants = try await NetworkManager.shared.fetchRestaurants(city: selectedCity)
             await MainActor.run {
                 allRestaurants = restaurants
                 isLoading = false
             }
         } catch {
-            // If Delhi fails, try to search all
+            // If selected city fails, try to search all
             do {
-                let restaurants = try await NetworkManager.shared.searchRestaurants(query: "")
+                let restaurants = try await NetworkManager.shared.searchRestaurants(query: "", city: selectedCity)
                 await MainActor.run {
                     allRestaurants = restaurants
                     isLoading = false

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @StateObject private var viewModel = RestaurantViewModel()
+    @ObservedObject var viewModel: RestaurantViewModel
     @State private var showCityPicker = false
     
     var body: some View {
@@ -432,6 +432,6 @@ struct ShimmerCard: View {
 
 #Preview {
     NavigationStack {
-        HomeView()
+        HomeView(viewModel: RestaurantViewModel())
     }
 }
