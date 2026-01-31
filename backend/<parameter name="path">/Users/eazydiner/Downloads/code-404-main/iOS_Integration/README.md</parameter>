@@ -1,0 +1,137 @@
+<parameter name="content"># iOS App Integration with Backend
+
+## Files Created
+
+1. **Models.swift** - Data models for API responses
+2. **NetworkService.swift** - API service layer
+
+## How to Integrate with Your Xcode Project
+
+### Step 1: Add Files to Your Project
+
+Copy these files to your Xcode project:
+- `Models.swift`
+- `NetworkService.swift`
+
+### Step 2: Update Your Existing Views
+
+Based on your UI code, here are the modifications needed:
+
+## HomeView.swift - Update with API Integration
+
+```swift
+import SwiftUI
+
+struct HomeView: View {
+    @State private var cities: [String] = []
+    @State private var selectedCity: String = ""
+    @State private var restaurants: [Restaurant] = []
+    @State private var isLoading = false
+    @State private var errorMessage: String?
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                // City Picker
+                if !cities.isEmpty {
+                    Picker("Select City", selection: $selectedCity) {
+                        ForEach(cities, id: \.self) { city in
+                            Text(city).tag(city)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .padding()
+                }
+                
+                // Loading State
+                if isLoading {
+                    ProgressView("Loading restaurants...")
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                // Error State
+                else if let error = errorMessage {
+                    VStack(spacing: 16) {
+                        Image(systemName: "exclamationmark.triangle")
+                            .font(.system(size: 50))
+                            .foregroundColor(.orange)
+                        Text(error)
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                        Button("Retry") {
+                            loadCities()
+                        }
+                        .foregroundColor(.blue)
+                    }
+                    .padding()
+                }
+                // Empty State
+                else if restaurants.isEmpty {
+                    VStack(spacing: 16) {
+                        Image(systemName: "building.2")
+                            .font(.system(size: 50))
+                            .foregroundColor(.gray)
+                        Text("No restaurants found")
+                            .foregroundColor(.gray)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                // Restaurant List
+                else {
+                    List(restaurants) { restaurant in
+                        NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(restaurant.name)
+                                        .font(.headline)
+                                        .foregroundColor(.black)
+                                    
+                                    if let address = restaurant.address {
+                                        Text(address)
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                            .lineLimit(1)
+                                    }
+                                    
+                                    Text(restaurant.city)
+                                        .font(.caption)
+                                        .padding(.horizontal, 8)
+                                        .padding(.vertical, 4)
+                                        .background(Color.orange.opacity(0.2))
+                                        .foregroundColor(.orange)
+                                        .cornerRadius(8)
+                                }
+                                
+                                Spacer()
+                            }
+                            .padding(.vertical, 8)
+                        }
+                    }
+                    .listStyle(.plain)
+                }
+            }
+            .navigationTitle("Restaurants")
+            .onAppear {
+                loadCities()
+            }
+            .onChange(of: selectedCity) { _, newCity in
+                loadRestaurants(for: newCity)
+            }
+        }
+    }
+    
+    private func loadCities() {
+        NetworkService.shared.fetchCities { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let cityList):
+                    cities = cityList
+                    if let firstCity = cityList.first {
+                        selectedCity = firstCity
+                    }
+                case .failure(let error):
+                    errorMessage = "Failed to load cities: \(error.localizedDescription)"
+                }
+            }
+        }
+    }
+    
