@@ -4,8 +4,10 @@ require("./config/env");
 const {connectDB} = require("./config/db");
 
 const app = express();
+
+// Allow CORS from any origin for mobile app access
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: true,  // Allow any origin
   credentials: true
 }));
 
@@ -20,8 +22,12 @@ app.use("/bill", require("./routes/bill"));
 app.use("/payment", require("./routes/payment"));
 app.use("/restaurants", require("./routes/Restaurant"));
 
-app.listen(3000, () => {
-  console.log("🚀 Server running on port 3000");
+// Listen on all interfaces (0.0.0.0) so devices on the network can connect
+const HOST = "0.0.0.0";
+const PORT = 3000;
+
+app.listen(PORT, HOST, () => {
+  console.log(`🚀 Server running on http://${HOST}:${PORT}`);
   console.log("📡 Endpoints:");
   console.log("   - GET  /restaurants/cities");
   console.log("   - GET  /restaurants/city/:citySlug");

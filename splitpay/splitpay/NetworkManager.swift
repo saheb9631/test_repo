@@ -2,7 +2,13 @@ import Foundation
 
 // MARK: - API Endpoints
 enum APIEndpoint {
+    // Use localhost for simulator, Mac's IP for real devices
+    #if targetEnvironment(simulator)
     static let baseURL = "http://localhost:3000"
+    #else
+    // Replace this with your Mac's IP address (run `ipconfig getifaddr en0` in Terminal)
+    static let baseURL = "http://192.168.3.152:3000"
+    #endif
     
     case cities
     case restaurantsByCity(String)
