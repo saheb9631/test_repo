@@ -14,6 +14,20 @@
 		3EB597702F2DCB6700B299D2 /* splitpayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5976F2F2DCB6700B299D2 /* splitpayTests.swift */; };
 		3EB5977A2F2DCB6700B299D2 /* splitpayUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB597792F2DCB6700B299D2 /* splitpayUITests.swift */; };
 		3EB5977C2F2DCB6700B299D2 /* splitpayUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB5977B2F2DCB6700B299D2 /* splitpayUITestsLaunchTests.swift */; };
+		A1000001AAAAAAAA00000001 /* BillPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001BBBBBBBB00000001 /* BillPreview.swift */; };
+		A1000002AAAAAAAA00000002 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002BBBBBBBB00000002 /* CameraPreview.swift */; };
+		A1000003AAAAAAAA00000003 /* DemoNextPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000003BBBBBBBB00000003 /* DemoNextPage.swift */; };
+		A1000004AAAAAAAA00000004 /* GroupStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004BBBBBBBB00000004 /* GroupStatus.swift */; };
+		A1000005AAAAAAAA00000005 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000005BBBBBBBB00000005 /* HomeView.swift */; };
+		A1000006AAAAAAAA00000006 /* MainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000006BBBBBBBB00000006 /* MainHomeView.swift */; };
+		A1000007AAAAAAAA00000007 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000007BBBBBBBB00000007 /* NetworkManager.swift */; };
+		A1000008AAAAAAAA00000008 /* PayBillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000008BBBBBBBB00000008 /* PayBillView.swift */; };
+		A1000009AAAAAAAA00000009 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000009BBBBBBBB00000009 /* Payment.swift */; };
+		A100000AAAAAAAAA0000000A /* PaymentSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000ABBBBBBBB0000000A /* PaymentSuccess.swift */; };
+		A100000BAAAAAAAA0000000B /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000BBBBBBBBB0000000B /* Restaurant.swift */; };
+		A100000CAAAAAAAA0000000C /* RestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000CBBBBBBBB0000000C /* RestaurantViewModel.swift */; };
+		A100000DAAAAAAAA0000000D /* ScanQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000DBBBBBBBB0000000D /* ScanQRView.swift */; };
+		A100000EAAAAAAAA0000000E /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000EBBBBBBBB0000000E /* SplashScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +59,20 @@
 		3EB597752F2DCB6700B299D2 /* splitpayUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = splitpayUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB597792F2DCB6700B299D2 /* splitpayUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splitpayUITests.swift; sourceTree = "<group>"; };
 		3EB5977B2F2DCB6700B299D2 /* splitpayUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = splitpayUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A1000001BBBBBBBB00000001 /* BillPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillPreview.swift; sourceTree = "<group>"; };
+		A1000002BBBBBBBB00000002 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
+		A1000003BBBBBBBB00000003 /* DemoNextPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoNextPage.swift; sourceTree = "<group>"; };
+		A1000004BBBBBBBB00000004 /* GroupStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupStatus.swift; sourceTree = "<group>"; };
+		A1000005BBBBBBBB00000005 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A1000006BBBBBBBB00000006 /* MainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeView.swift; sourceTree = "<group>"; };
+		A1000007BBBBBBBB00000007 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		A1000008BBBBBBBB00000008 /* PayBillView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayBillView.swift; sourceTree = "<group>"; };
+		A1000009BBBBBBBB00000009 /* Payment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
+		A100000ABBBBBBBB0000000A /* PaymentSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentSuccess.swift; sourceTree = "<group>"; };
+		A100000BBBBBBBBB0000000B /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		A100000CBBBBBBBB0000000C /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
+		A100000DBBBBBBBB0000000D /* ScanQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRView.swift; sourceTree = "<group>"; };
+		A100000EBBBBBBBB0000000E /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +125,20 @@
 			children = (
 				3EB5975D2F2DCB6400B299D2 /* splitpayApp.swift */,
 				3EB5975F2F2DCB6400B299D2 /* ContentView.swift */,
+				A1000001BBBBBBBB00000001 /* BillPreview.swift */,
+				A1000002BBBBBBBB00000002 /* CameraPreview.swift */,
+				A1000003BBBBBBBB00000003 /* DemoNextPage.swift */,
+				A1000004BBBBBBBB00000004 /* GroupStatus.swift */,
+				A1000005BBBBBBBB00000005 /* HomeView.swift */,
+				A1000006BBBBBBBB00000006 /* MainHomeView.swift */,
+				A1000007BBBBBBBB00000007 /* NetworkManager.swift */,
+				A1000008BBBBBBBB00000008 /* PayBillView.swift */,
+				A1000009BBBBBBBB00000009 /* Payment.swift */,
+				A100000ABBBBBBBB0000000A /* PaymentSuccess.swift */,
+				A100000BBBBBBBBB0000000B /* Restaurant.swift */,
+				A100000CBBBBBBBB0000000C /* RestaurantViewModel.swift */,
+				A100000DBBBBBBBB0000000D /* ScanQRView.swift */,
+				A100000EBBBBBBBB0000000E /* SplashScreenView.swift */,
 				3EB597612F2DCB6700B299D2 /* Assets.xcassets */,
 				3EB597632F2DCB6700B299D2 /* splitpay.entitlements */,
 				3EB597642F2DCB6700B299D2 /* Preview Content */,
@@ -261,6 +303,20 @@
 			files = (
 				3EB597602F2DCB6400B299D2 /* ContentView.swift in Sources */,
 				3EB5975E2F2DCB6400B299D2 /* splitpayApp.swift in Sources */,
+				A1000001AAAAAAAA00000001 /* BillPreview.swift in Sources */,
+				A1000002AAAAAAAA00000002 /* CameraPreview.swift in Sources */,
+				A1000003AAAAAAAA00000003 /* DemoNextPage.swift in Sources */,
+				A1000004AAAAAAAA00000004 /* GroupStatus.swift in Sources */,
+				A1000005AAAAAAAA00000005 /* HomeView.swift in Sources */,
+				A1000006AAAAAAAA00000006 /* MainHomeView.swift in Sources */,
+				A1000007AAAAAAAA00000007 /* NetworkManager.swift in Sources */,
+				A1000008AAAAAAAA00000008 /* PayBillView.swift in Sources */,
+				A1000009AAAAAAAA00000009 /* Payment.swift in Sources */,
+				A100000AAAAAAAAA0000000A /* PaymentSuccess.swift in Sources */,
+				A100000BAAAAAAAA0000000B /* Restaurant.swift in Sources */,
+				A100000CAAAAAAAA0000000C /* RestaurantViewModel.swift in Sources */,
+				A100000DAAAAAAAA0000000D /* ScanQRView.swift in Sources */,
+				A100000EAAAAAAAA0000000E /* SplashScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
