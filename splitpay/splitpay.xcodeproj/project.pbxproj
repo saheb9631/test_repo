@@ -28,6 +28,7 @@
 		A100000CAAAAAAAA0000000C /* RestaurantViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000CBBBBBBBB0000000C /* RestaurantViewModel.swift */; };
 		A100000DAAAAAAAA0000000D /* ScanQRView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000DBBBBBBBB0000000D /* ScanQRView.swift */; };
 		A100000EAAAAAAAA0000000E /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000EBBBBBBBB0000000E /* SplashScreenView.swift */; };
+		A100000FAAAAAAAA0000000F /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000FBBBBBBBB0000000F /* UserSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		A100000CBBBBBBBB0000000C /* RestaurantViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantViewModel.swift; sourceTree = "<group>"; };
 		A100000DBBBBBBBB0000000D /* ScanQRView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRView.swift; sourceTree = "<group>"; };
 		A100000EBBBBBBBB0000000E /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		A100000FBBBBBBBB0000000F /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 				A100000CBBBBBBBB0000000C /* RestaurantViewModel.swift */,
 				A100000DBBBBBBBB0000000D /* ScanQRView.swift */,
 				A100000EBBBBBBBB0000000E /* SplashScreenView.swift */,
+				A100000FBBBBBBBB0000000F /* UserSession.swift */,
 				3EB597612F2DCB6700B299D2 /* Assets.xcassets */,
 				3EB597632F2DCB6700B299D2 /* splitpay.entitlements */,
 				3EB597642F2DCB6700B299D2 /* Preview Content */,
@@ -317,6 +320,7 @@
 				A100000CAAAAAAAA0000000C /* RestaurantViewModel.swift in Sources */,
 				A100000DAAAAAAAA0000000D /* ScanQRView.swift in Sources */,
 				A100000EAAAAAAAA0000000E /* SplashScreenView.swift in Sources */,
+				A100000FAAAAAAAA0000000F /* UserSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

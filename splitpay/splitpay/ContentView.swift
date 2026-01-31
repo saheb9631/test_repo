@@ -2,8 +2,13 @@ import SwiftUI
 
 struct ContentView: View {
 
+    // User session to store data
+    @StateObject private var userSession = UserSession.shared
+    
+    // Local state for UI
     @State private var showGroups = false
     @State private var selectedGroup = "Select restaurant group"
+    @State private var showValidationError = false
 
     var body: some View {
         ZStack {
@@ -37,10 +42,88 @@ struct ContentView: View {
                                 Text("Split bills effortlessly with friends")
                                     .foregroundColor(.gray)
 
-                                SoftField(icon: "person.fill", placeholder: "Your name")
-                                SoftField(icon: "phone.fill", placeholder: "Phone number")
+                                // NAME FIELD
+                                ValidatedField(
+                                    icon: "person.fill",
+                                    placeholder: "Your name",
+                                    text: $userSession.userName,
+                                    isValid: userSession.isNameValid,
+                                    keyboardType: .default
+                                )
+                                
+                                // PHONE FIELD - Numbers only, 10 digits
+                                VStack(alignment: .leading, spacing: 4) {
+                                    ValidatedField(
+                                        icon: "phone.fill",
+                                        placeholder: "Phone number (10 digits)",
+                                        text: $userSession.phoneNumber,
+                                        isValid: userSession.isPhoneValid,
+                                        keyboardType: .numberPad
+                                    )
+                                    .onChange(of: userSession.phoneNumber) { oldValue, newValue in
+                                        // Only allow digits and max 10 characters
+                                        let filtered = newValue.filter { $0.isNumber }
+                                        if filtered.count <= 10 {
+                                            userSession.phoneNumber = filtered
+                                        } else {
+                                            userSession.phoneNumber = String(filtered.prefix(10))
+                                        }
+                                    }
+                                    
+                                    if !userSession.phoneNumber.isEmpty && !userSession.isPhoneValid {
+                                        Text("Phone must be 10 digits")
+                                            .font(.caption)
+                                            .foregroundColor(.red)
+                                    }
+                                }
+                                
+                                // NUMBER OF PEOPLE SELECTOR
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("Number of People")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(.gray)
+                                    
+                                    HStack {
+                                        Image(systemName: "person.2.fill")
+                                            .foregroundColor(.orange)
+                                        
+                                        Spacer()
+                                        
+                                        // Stepper with buttons
+                                        HStack(spacing: 16) {
+                                            Button {
+                                                if userSession.numberOfPeople > 2 {
+                                                    userSession.numberOfPeople -= 1
+                                                }
+                                            } label: {
+                                                Image(systemName: "minus.circle.fill")
+                                                    .font(.system(size: 28))
+                                                    .foregroundColor(userSession.numberOfPeople > 2 ? .orange : .gray)
+                                            }
+                                            .disabled(userSession.numberOfPeople <= 2)
+                                            
+                                            Text("\(userSession.numberOfPeople)")
+                                                .font(.system(size: 22, weight: .bold))
+                                                .frame(width: 40)
+                                            
+                                            Button {
+                                                if userSession.numberOfPeople < 20 {
+                                                    userSession.numberOfPeople += 1
+                                                }
+                                            } label: {
+                                                Image(systemName: "plus.circle.fill")
+                                                    .font(.system(size: 28))
+                                                    .foregroundColor(userSession.numberOfPeople < 20 ? .orange : .gray)
+                                            }
+                                            .disabled(userSession.numberOfPeople >= 20)
+                                        }
+                                    }
+                                    .padding(12)
+                                    .background(Color(.systemGray6))
+                                    .cornerRadius(14)
+                                }
 
-                                // DROPDOWN
+                                // DROPDOWN - Restaurant Group
                                 VStack(spacing: 6) {
                                     Button {
                                         showGroups.toggle()
@@ -82,12 +165,34 @@ struct ContentView: View {
                                     }
                                 }
 
-                                // ✅ CONTINUE → Goes to ScanQRView
+                                // VALIDATION ERROR
+                                if showValidationError {
+                                    Text("Please fill in all fields correctly")
+                                        .font(.caption)
+                                        .foregroundColor(.red)
+                                        .transition(.opacity)
+                                }
+
+                                // ✅ CONTINUE → Goes to ScanQRView (only if form is valid)
                                 NavigationLink {
                                     ScanQRView()
                                 } label: {
                                     SoftButton(title: "Continue")
                                 }
+                                .disabled(!userSession.isFormValid)
+                                .opacity(userSession.isFormValid ? 1.0 : 0.5)
+                                .simultaneousGesture(TapGesture().onEnded {
+                                    if !userSession.isFormValid {
+                                        withAnimation {
+                                            showValidationError = true
+                                        }
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            withAnimation {
+                                                showValidationError = false
+                                            }
+                                        }
+                                    }
+                                })
                             }
                         }
 
@@ -121,6 +226,40 @@ struct ContentView: View {
     func selectGroup(_ name: String) {
         selectedGroup = name
         showGroups = false
+    }
+}
+
+// MARK: - Validated Field Component
+struct ValidatedField: View {
+    var icon: String
+    var placeholder: String
+    @Binding var text: String
+    var isValid: Bool
+    var keyboardType: UIKeyboardType = .default
+
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(.orange)
+            TextField(placeholder, text: $text)
+                .keyboardType(keyboardType)
+            
+            if !text.isEmpty {
+                Image(systemName: isValid ? "checkmark.circle.fill" : "xmark.circle.fill")
+                    .foregroundColor(isValid ? .green : .red)
+                    .font(.system(size: 16))
+            }
+        }
+        .padding(12)
+        .background(Color(.systemGray6))
+        .cornerRadius(14)
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .stroke(
+                    text.isEmpty ? Color.clear : (isValid ? Color.green.opacity(0.3) : Color.red.opacity(0.3)),
+                    lineWidth: 1
+                )
+        )
     }
 }
 struct SoftCard<Content: View>: View {
